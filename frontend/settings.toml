@@ -1,0 +1,4 @@
+[default]
+autostart = false
+#server = "ws://dvp.mltech.net.au"
+server = "ws://localhost:4933"
