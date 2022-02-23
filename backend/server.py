@@ -58,8 +58,37 @@ async def handleClientWS(websocket, path):
     nUser = User(frontendip = str(init[1]), discordid = str(user[1]))
     s.add(nUser)
     s.commit()
-    while True:
-
+    try:
+        a = s.query(User).filter(User.discordid==user[1]).first()
+        while True:
+            if len(a.clientqueue) > 1:
+                websocketstr = ""
+                for item in a.clientqueue[0]:
+                    websocketstr += str(item) + ";"
+                print(websocketstr)
+                await websocket.send(websocketstr)
+            try:
+                currentrecv = await asyncio.wait_for(websocket.recv(), timeout=1).split(";")
+                if currentrecv[0] == "DISCONNECT":
+                    s.commit()
+                    websocket.close()
+                if currentrecv[0] == "RESPONSEVOICE":
+                    if currentrecv[1] == "SLEFMUTE":
+                        a.usermuted = currentrecv[2]
+                    if currentrecv[1] == "SELFDEAF":
+                        a.userdeafened = currentrecv[2]
+                    if currentrecv[1] == "LOCALMUTE":
+                        b = s.query(User).filter(User.discordid==currentrecv[2]).first()
+                        a.userdistances[b.mojangid]["muted"] == currentrecv[3]
+                    if currentrecv[1] == "LOCALVOLUME":
+                        b = s.query(User).filter(User.discordid==currentrecv[2]).first()
+                        a.userdistances[b.mojangid]["volume"] == currentrecv[3]
+            except asyncio.TimeoutError:
+                print("Nothing in queue for "+str(user[1]))
+    except websockets.connection.ConnectionClosed as e:
+        print(str(e))
+        s.commit()
+        return
 
 async def handleServerWS(websocket, path):
     packetServerInit = await websocket.recv()

@@ -15,9 +15,10 @@
 - INIT;(IP);
 - CONNECTED;(Discord User Name#Tag);
 - RESPONSEFAIL;(error);
+- DISCONNECT;
 2. RESPONSEACTIVITY;(assets.large_image);(assets.large_text);(assets.small_image);(assets.small_text);(details);(instance);(party.id);(party.size);(secrets.join);(secrets.match);(secrets.spectate);(state);(timestamps.end);(timestamps.start)
 3. RESPONSELOBBYTRANSACTION;(result);(lobby.id);(lobbby.owner_id);(lobby.secret);(lobby.capacity);(lobby.locked)
 8. RESPONSEVOICE;SELFMUTE;(bool isMuted);
 9. RESPONSEVOICE;SELFDEAF;(bool isDeaf);
-10. REPSONSEVOICE;LOCALMUTE;(bool isMute);
-11. RESPONSEVOICE;LOCALVOLUME;(int volume);
+10. REPSONSEVOICE;LOCALMUTE;(userid);(bool isMute);
+11. RESPONSEVOICE;LOCALVOLUME;(userid);(int volume);
