@@ -93,7 +93,7 @@ async def handleClientWS(websocket, path):
 async def handleServerWS(websocket, path):
     packetServerInit = await websocket.recv()
     while True:
-        
+        print("Handling...")
 
 # handling discord
 @client.event

@@ -1,0 +1,8 @@
+name: Discord Voice Presence
+version: '${version}'
+main: au.net.mltech.discordvoicepresence.DiscordVoicePresence
+api-version: 1.18
+load: STARTUP
+authors: [ MagmaMac ]
+description: Discord Voice Presence
+website: https://github.com/Mac898/DVP
